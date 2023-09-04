@@ -37,11 +37,6 @@
       "url": "https://interlocklabsinc.mintlify.app/"
     },
     {
-      "name": "Community",
-      "icon": "discord",
-      "url": "https://discord.com/"
-    },
-    {
       "name": "GitHub",
       "icon": "github",
       "url": "https://github.com/interlocklabs/exp-4.1.0-trellis"
@@ -74,7 +69,6 @@
     }
   ],
   "footerSocials": {
-    "discord": "https://discord.com/",
     "github": "https://github.com/mintlify"
   }
 }

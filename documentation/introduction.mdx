@@ -1,14 +1,19 @@
 ---
-title: "Introduction"
-sidebarTitle: "Trellis"
+title: "Trellis"
+sidebarTitle: "Introduction"
+icon: "hand-wave"
 ---
 
 **Trellis is an [open-source](https://github.com/interlocklabs/exp-4.1.0-trellis) framework for programmatically
-orchestrating LLM workflows as Directed Acyclic Graphs (DAGs) in Python.** We intentionally designed it to give 
+orchestrating LLM workflows as Directed Acyclic Graphs (DAGs) in Python.** We've intentionally designed it to give 
 developers as much control as possible, and we've written extensive documentation to make it incredibly easy to 
 get started.
 
-Trellis is composed of only three abstractions: `DAG`, `Node`, and `LLM`.
-- DAG:
-- Node:
-- LLM:
+Trellis is composed of only three abstractions: `Node`, `DAG`, and `LLM`.
+- Node: the fundamental unit of computation in Trellis. Nodes are chained together to form a DAG. 
+  You can extend `Node` and modify its `execute` function, input schema, and output schema to implement any business logic.
+- DAG: a directed acyclic graph of `Node`s. It is the primary abstraction for orchestrating LLM workflows. When you 
+  add edges between `Node`s, you can specify a transformation function to reuse `Node`s and connect any two `Node`s.
+  Trellis verifies the data flowing between `Nodes` in a `DAG` to ensure that the workflow is valid. 
+- LLM: a wrapper around a large language model which handles exceptions and rate limiting for you. Currently, the only provider
+  that Trellis supports is OpenAI.
