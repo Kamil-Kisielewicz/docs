@@ -52,24 +52,8 @@
       "pages": ["beginner/tool", "beginner/openai", "beginner/connect", "beginner/run"]
     },
     {
-      "group": "Examples",
-      "pages": ["examples/itinerary", "examples/commonality", "examples/rag"]
-    },
-    {
       "group": "Reference",
       "pages": ["reference/node", "reference/dag", "reference/llm"]
-    },
-    {
-      "group": "Mintlify",
-      "pages": ["mintlify/introduction", "mintlify/quickstart", "mintlify/development"]
-    },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
-    {
-      "group": "API",
-      "pages": ["api-reference/authentication", "api-reference/endpoint/create", "api-reference/endpoint/delete", "api-reference/endpoint/get", "api-reference/endpoint/update"]
     }
   ],
   "footerSocials": {
