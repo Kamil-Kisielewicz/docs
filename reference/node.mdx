@@ -96,17 +96,77 @@ Set **kwargs to execute_args.
 <ParamField body="key" type="str" required>
 Set input schema as a dictionary of field name keys and type values. Input is meant to represent values passed in and set dynamically from other nodes.
 
+The allowed schema definitions are as follows:
+- The schema must be a dictionary
+    ```
+    Schema = 
+        {
+            "outer": str,
+            "inner": {
+                "level": int
+            }
+        }
+    ```
+- Lists must be denoted as literals, and are treated as a set of allowable values
+- Dictionaries must have strings as keys, and types as values
+- Other types must be from the following selection: `int`, `float`, `str`, `bool`, `bytes`, `dict (generic)`, `list (generic)`. 
+- **Parametrized generics are not supported as of yet and will throw an exception**
+- **Custom classes are not supported as of yet and will throw an exception**
+
+```python
+    Schema = {
+        "name": str,
+        "favorites": dict, # will allow any dict containing anything
+        "cities_lived": list, # will allow any list containing anything
+        "schools_attended": [str], # will allow any strings
+        "pre_ipo_user": bool,
+        "age": float,
+        "secret_code": bytes
+    }
+```
+
 </ParamField>
 
 ### set_output_s
 <ParamField body="key" type="str" required>
 Set output schema as a dictionary of field name keys and type values. Output is the output of this node.
 
+The allowed schema definitions are as follows:
+- The schema must be a dictionary
+    ```
+    Schema = 
+        {
+            "outer": str,
+            "inner": {
+                "level": int
+            }
+        }
+    ```
+- Lists must be denoted as literals, and are treated as a set of allowable values
+- Dictionaries must have strings as keys, and types as values
+- Other types must be from the following selection: `int`, `float`, `str`, `bool`, `bytes`, `dict (generic)`, `list (generic)`. 
+- **Parametrized generics are not supported as of yet and will throw an exception**
+- **Custom classes are not supported as of yet and will throw an exception**
+
+```python
+    Schema = {
+        "name": str,
+        "favorites": dict, # will allow any dict containing anything
+        "cities_lived": list, # will allow any list containing anything
+        "schools_attended": [str], # will allow any strings
+        "pre_ipo_user": bool,
+        "age": float,
+        "secret_code": bytes
+    }
+```
+
 </ParamField>
 
 ### set_pre_execute_hook
 <ParamField body="hook" type="Callable[[dict[str:type]], dict[str:type]]" required>
-Set a hook to be called before the node executes within the DAG. TODO: what is this meant to be used for?
+Set a hook to be called before the node executes within the DAG. 
+
+Can be used to hard-set certain inputs or any custom functionality such as logging inputs to analytics.
 
 </ParamField>
 
@@ -114,14 +174,18 @@ Set a hook to be called before the node executes within the DAG. TODO: what is t
 <ParamField body="hook" type="str" required>
 Set a hook to be called after the node executes within the DAG. TODO: what is this meant to be used for?
 
+Log outputs to analytics, send to data warehouse, CRM, etc
+
 </ParamField>
 
 ### validate_input
+`validate_input` gets called in [dag.execute](./dag#execute), but feel free to call it wherever you want.
 <ResponseField type="bool">
 Whether or not the input data (`input`) matches the input schema (`input_s`). Although we raise an exception for the failure case in DAG, whether you want to raise an exception or not when you use the method otherwise is up to you.
 </ResponseField>
 
 ### validate_output
+`validate_output` gets called in [dag.execute](./dag#execute), but feel free to call it wherever you want.
 <ResponseField type="bool">
 Whether or not the output data (`output`) matches the output schema (`output_s`). Although we raise an exception for the failure case in DAG, whether you want to raise an exception or not when you use the method otherwise is up to you.
 </ResponseField>
@@ -133,4 +197,5 @@ Whether or not the execute args data (`execute_args`) matches the execute_args s
 
 ### execute
 Abstract method which must be implemented in a subclass. This method is called when the node is executed within a DAG.
-The input and output are meant to be set via the `set_input`, `set_execute_args`, and `set_output` methods.
+
+In order to access the input for the `Node`, use `self.get_input()`. Once you have created the output dictionary, instead of returning it, set it as the `Node`'s output by using `self.set_output()`.
