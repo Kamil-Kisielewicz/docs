@@ -45,7 +45,7 @@
   "navigation": [
     {
       "group": "Documentation",
-      "pages": ["documentation/introduction", "documentation/gettingstarted", "documentation/architecture"]
+      "pages": ["documentation/introduction", "documentation/gettingstarted"]
     },
     {
       "group": "Beginner Tutorial",
