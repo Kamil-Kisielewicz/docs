@@ -1,4 +1,88 @@
 ---
 title: "LLM"
-description: "Subtitle (optional)"
 ---
+
+### get_model
+<ResponseField name="" type="string">
+Returns the language model that this LLM is using.
+
+Should be one of ["gpt-4",
+    "gpt-4-0613",
+    "gpt-4-32k",
+    "gpt-4-32k-0613",
+    "gpt-3.5-turbo",
+    "gpt-3.5-turbo-0613",
+    "gpt-3.5-turbo-16k",
+    "gpt-3.5-turbo-16k-0613",]
+
+</ResponseField>
+
+### get_messages
+<ResponseField name="" type="list[dict]">
+Returns the list of messages in OpenAI message format.
+
+</ResponseField>
+
+### get_max_retries
+<ResponseField name="" type="int">
+Returns the maximum number of retries for this LLM when handling errors.
+
+</ResponseField>
+
+### get_retry_delay
+<ResponseField name="" type="int">
+Returns the number of seconds to wait before retrying when handling errors.
+
+</ResponseField>
+
+### get_rate_limit_delay
+<ResponseField name="" type="string">
+Returns the number of seconds to wait before retrying when handling rate limit error.
+
+</ResponseField>
+
+### set_model
+<ParamField body="model" type="string" required>
+Sets the model that this LLM will use.
+
+Should be one of ["gpt-4",
+    "gpt-4-0613",
+    "gpt-4-32k",
+    "gpt-4-32k-0613",
+    "gpt-3.5-turbo",
+    "gpt-3.5-turbo-0613",
+    "gpt-3.5-turbo-16k",
+    "gpt-3.5-turbo-16k-0613",]
+
+</ParamField>
+
+### set_messages
+<ParamField body="messages" type="list[dict]" required>
+Sets the list of messages in OpenAI message format.
+
+</ParamField>
+
+### set_max_retries
+<ParamField body="max_retries" type="int" required>
+Sets the maximum number of retries for this LLM when handling errors.
+
+</ParamField>
+
+### set_retry_delay
+<ParamField body="retry_delay" type="int" required>
+Sets the number of seconds to wait before retrying when handling errors.
+
+</ParamField>
+
+### set_rate_limit_delay
+<ParamField body="rate_limit_delay" type="int" required>
+Sets the number of seconds to wait before retrying when handling rate limit error.
+
+</ParamField>
+
+### execute
+Calls OpenAI chat completion. Handles errors and retries automatically.
+
+<ResponseField name="" type="dict">
+Returns the response from the OpenAI API if you want to use it.
+</ResponseField>

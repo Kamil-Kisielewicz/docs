@@ -1,4 +1,66 @@
 ---
 title: "DAG"
-description: "Subtitle (optional)"
 ---
+
+### is_node
+<ParamField body="node" type="Node" required>
+The node to check.
+
+</ParamField>
+
+<ResponseField name="" type="bool">
+Returns boolean indicating whether the node is a `Node`.
+
+</ResponseField>
+
+### set_root
+<ParamField body="node" type="Node" required>
+The node to set as the root. Adds to `nodes` if not added already. Throws error if not a valid node.
+
+</ParamField>
+
+### add_node
+<ParamField body="node" type="Node" required>
+The node to set as the root. Adds to `nodes` if not added already. Throws error if not a valid node.
+
+</ParamField>
+
+### remove_node
+<ParamField body="node" type="Node" required>
+The node to remove. Throws errors if not a valid node or if the node is not in the graph.
+
+</ParamField>
+
+### get_node
+<ParamField body="node_id" type="str" required>
+The node id to get. Throws error if not a valid id or if node not in graph.
+
+</ParamField>
+
+### add_edge
+<ParamField body="from_node" type="Node" required>
+The node to add the edge from. Throws error if not a valid node or if node not in graph.
+</ParamField>
+
+<ParamField body="to_node" type="Node" required>
+The node to add the edge to. Throws error if not a valid node, if node not in graph, or if there's a cycle.
+</ParamField>
+
+<ParamField body="fn" type="Callable[[dict[str:type]], dict[str:type]]">
+A function to transform the outputs of `from_node` for `to_node`. Defaults to `lambda x: x`.
+</ParamField>
+
+### remove_edge
+<ParamField body="from_node" type="Node" required>
+The node to add the edge from. Throws error if not a valid node or if node not in graph.
+</ParamField>
+
+<ParamField body="to_node" type="Node" required>
+The node to add the edge to. Throws error if not a valid node, if node not in graph, or if there's a cycle.
+</ParamField>
+
+### execute
+Topologically sorts the graph and runs it.
+<ParamField body="init_source_nodes" type="dict[str:type]" required>
+A dictionary of node_id keys -> its initial args and kwargs, which will be set to `execute_args` once the DAG runs.
+</ParamField>

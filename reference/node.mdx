@@ -3,7 +3,6 @@ title: "Node"
 ---
 
 ### get_status
-#### Returns
 <ResponseField name="" type="string">
 Returns the status of the node's execution. 
 Will be one of `PENDING`, `EXECUTING`, `SUCCESS`, `FAILED`.
@@ -13,133 +12,115 @@ Example: `SUCCESS`
 </ResponseField>
 
 ### get_id
-#### Returns
 <ResponseField name="" type="string">
 id of this node.
 
 </ResponseField>
 
 ### get_name
-#### Returns
 <ResponseField type="string">
 Name assigned to the instance of this node.
 
 </ResponseField>
 
 ### get_input
-#### Returns
 <ResponseField type="dict[str:type]">
 Returns input schema as a dictionary of field name keys and type values. Input is meant to represent values passed in and set dynamically from other nodes.
 
 </ResponseField>
 
 ### get_output
-#### Returns
 <ResponseField type="dict[str:type]">
 Returns output schema as a dictionary of field name keys and type values.
 
 </ResponseField>
 
 ### get_execute_args
-#### Returns
 <ResponseField type="dict[str:type]">
 Returns execute args as a dictionary of field name keys and type values. Execute args is meant to be set at runtime before a DAG starts.
 
 </ResponseField>
 
 ### safe_get_execute_args
-#### Parameters
-<ResponseField name="key" type="str" required>
+<ParamField body="key" type="str" required>
 The key that being retrieved from execute args.
 
-</ResponseField>
+</ParamField>
 
-<ResponseField name="default" type="str">
+<ParamField body="default" type="str">
 The expected default value in case the key is not found. Defaults to None.
 
-</ResponseField>
+</ParamField>
 
-#### Returns
 <ResponseField type="dict[str:type]">
 Returns execute args as a dictionary of field name keys and type values. Execute args is meant to be set at runtime before a DAG starts.
 
 </ResponseField>
 
 ### set_status
-#### Parameters
-<ResponseField name="status" type="str" required>
+<ParamField body="status" type="str" required>
 Set the status of the node's execution. Must be one of `PENDING`, `EXECUTING`, `SUCCESS`, `FAILED`. If not, will raise an error.
 
-</ResponseField>
+</ParamField>
 
 ### set_input
-#### Parameters
-<ResponseField name="input" type="dict[str:type]" required>
+<ParamField body="input" type="dict[str:type]" required>
 Set input values to this Node as a dictionary. Input is meant to represent values passed in and set dynamically from other nodes.
 
-</ResponseField>
+</ParamField>
 
 ### set_output
-#### Parameters
-<ResponseField name="output" type="dict[str:type]" required>
+<ParamField body="output" type="dict[str:type]" required>
 Set output values to this Node as a dictionary. Output is the output of this node.
 
-</ResponseField>
+</ParamField>
 
 ### set_execute_args
-#### Parameters
-<ResponseField name="*args" type="list[type]" required>
+<ParamField body="*args" type="list[type]" required>
 Set *args to execute_args. Execute args are meant to be set at runtime before a DAG starts.
 
-</ResponseField>
+</ParamField>
 
-<ResponseField name="**kwargs" type="dict[str:type]">
+<ParamField body="**kwargs" type="dict[str:type]">
 Set **kwargs to execute_args.
 
-</ResponseField>
+</ParamField>
 
 ### set_input_s
-#### Parameters
-<ResponseField name="key" type="str" required>
+<ParamField body="key" type="str" required>
 Set input schema as a dictionary of field name keys and type values. Input is meant to represent values passed in and set dynamically from other nodes.
 
-</ResponseField>
+</ParamField>
 
 ### set_output_s
-#### Parameters
-<ResponseField name="key" type="str" required>
+<ParamField name="key" type="str" required>
 Set output schema as a dictionary of field name keys and type values. Output is the output of this node.
 
-</ResponseField>
+</ParamField>
 
 ### set_pre_execute_hook
-#### Parameters
-<ResponseField name="hook" type="Callable[[dict[str:type]], dict[str:type]]" required>
+<ParamField name="hook" type="Callable[[dict[str:type]], dict[str:type]]" required>
 Set a hook to be called before the node executes within the DAG. TODO: what is this meant to be used for?
 
-</ResponseField>
+</ParamField>
 
 ### set_post_execute_hook
-#### Parameters
-<ResponseField name="hook" type="str" required>
+<ParamField name="hook" type="str" required>
 Set a hook to be called after the node executes within the DAG. TODO: what is this meant to be used for?
 
-</ResponseField>
+</ParamField>
 
 ### validate_input
-#### Returns
 <ResponseField type="bool">
 Whether or not the input data (`input`) matches the input schema (`input_s`).
 </ResponseField>
 
 ### validate_output
-#### Returns
 <ResponseField type="bool">
 Whether or not the output data (`output`) matches the output schema (`output_s`).
 </ResponseField>
 
 ### validate_execute_args
-#### Returns
 <ResponseField type="bool">
 Whether or not the execute args data (`execute_args`) matches the execute_args schema (`__execute_args_s`).
 </ResponseField>
