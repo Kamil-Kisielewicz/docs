@@ -2,6 +2,12 @@
 title: "DAG"
 ---
 
+### set_logger
+<ParamField body="logger" type="logging.Logger" required>
+Sets a logger for this DAG. Throws error if not a valid logger.
+
+</ParamField>
+
 ### is_node
 <ParamField body="node" type="Node" required>
 The node to check.
@@ -57,4 +63,20 @@ The node to add the edge to. Throws error if not a valid node, if node not in gr
 Topologically sorts the graph and runs it.
 <ParamField body="init_source_nodes" type="dict[str:type]" required>
 A dictionary of node_id keys -> its initial args and kwargs, which will be set to `execute_args` once the DAG runs.
+
+```
+    init_source_nodes = {
+        node_1.get_id(): {
+            "kwargs": {
+                "limit": 1
+            }
+        },
+        node_2.get_id(): {
+            "kwargs": {
+                "color": "red",
+                "fill_in": False
+            }
+        },
+    }
+```
 </ParamField>
