@@ -93,19 +93,19 @@ Set input schema as a dictionary of field name keys and type values. Input is me
 </ParamField>
 
 ### set_output_s
-<ParamField name="key" type="str" required>
+<ParamField body="key" type="str" required>
 Set output schema as a dictionary of field name keys and type values. Output is the output of this node.
 
 </ParamField>
 
 ### set_pre_execute_hook
-<ParamField name="hook" type="Callable[[dict[str:type]], dict[str:type]]" required>
+<ParamField body="hook" type="Callable[[dict[str:type]], dict[str:type]]" required>
 Set a hook to be called before the node executes within the DAG. TODO: what is this meant to be used for?
 
 </ParamField>
 
 ### set_post_execute_hook
-<ParamField name="hook" type="str" required>
+<ParamField body="hook" type="str" required>
 Set a hook to be called after the node executes within the DAG. TODO: what is this meant to be used for?
 
 </ParamField>
