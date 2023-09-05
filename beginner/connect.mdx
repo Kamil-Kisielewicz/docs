@@ -1,0 +1,81 @@
+---
+title: "Connect Nodes together"
+description: "Subtitle (optional)"
+icon: circle-3
+---
+
+## Tutorial Overview
+The next step in our tutorial is connecting our `Node`s together to build a DAG.
+
+## Building a DAG
+All we need to do is instantiate an instance of a DAG, add instances of our `Node`s, and add edges between them.
+
+### Instantiate the DAG
+First, we need to import the `DAG` class.
+```python example_dag.py
+from trellis.dag import DAG
+```
+
+Then, we can instantiate a `DAG`.
+```python example_dag.py
+dag = DAG()
+```
+`DAG` takes no arguments. We'll set everything up through function calls to it.
+
+### Import our cat fact tool
+We need to import our `CatFactsAPITool` class from the previous tutorial.
+```python example_dag.py
+from cat_fact_tool import CatFactsAPITool
+
+cat_fact_tool = CatFactsAPITool("cat_fact_tool")
+```
+
+### Add Nodes
+Next, we'll add our `Node`s using the `add_node` function.
+```python example_dag.py
+dag.set_root(cat_fact_tool)
+dag.add_node(generate_cat_fact_llm)
+dag.add_node(distinguish_cat_fact_llm)
+```
+
+### Add Edges
+Finally, we'll add edges between our `Node`s using the `add_edge` function.
+```python example_dag.py
+dag.add_edge(cat_fact_tool, distinguish_cat_fact_llm)
+```
+The cat_fact_tool -> distinguish_cat_fact_llm edge is easy, because we already named the output of the cat_fact_tool `cat_fact`.
+
+```python example_dag.py
+dag.add_edge(
+    generate_cat_fact_llm,
+    distinguish_cat_fact_llm,
+    fn=lambda x: {"cat_fact_2": x["choices"][0]["message"]["content"]},
+)
+```
+The generate_cat_fact_llm -> distinguish_cat_fact_llm edge is a little more complicated. We need to specify a function that transforms and renames
+the output of the generate_cat_fact_llm into the input of the distinguish_cat_fact_llm. In this case, we'll just take the first choice
+and rename it to `cat_fact_2`.
+
+Every edge in Trellis allows you to optionally transform data between nodes when you add an edge. We designed it this way to reduce the amount
+of code you'd have to rewrite.
+
+### Putting it all together
+That's it! We've put our `DAG` together. In the next and final tutorial, we'll run it. Visit the [DAG reference](../reference/dag) to learn more. Here's the full code for this tutorial.
+```python example_dag.py
+from cat_fact_tool import CatFactsAPITool
+from trellis.dag import DAG
+
+cat_fact_tool = CatFactsAPITool("cat_fact_tool")
+
+dag = DAG()
+dag.set_root(cat_fact_tool)
+dag.add_node(generate_cat_fact_llm)
+dag.add_node(distinguish_cat_fact_llm)
+
+dag.add_edge(cat_fact_tool, distinguish_cat_fact_llm)
+dag.add_edge(
+    generate_cat_fact_llm,
+    distinguish_cat_fact_llm,
+    fn=lambda x: {"cat_fact_2": x["choices"][0]["message"]["content"]},
+)
+```

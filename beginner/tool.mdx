@@ -66,6 +66,8 @@ If we instead expected this input to come exclusively from another `Node`, we wo
 In this case, we produce a single output called `cat_information` that is a list of dictionaries, where each dictionary has string keys and string values. This is the format that the API returns, so we'll keep it as is.
 - `*args` and `**kwargs` are used to pass any additional arguments to the `Node` constructor. They're included within the Node constructor by default for flexibility if you want to initialize `execute_args` via the constructor.
 
+NOTE: even though input_s and output_s are optional to `Node`, setting these upfront will save you a lot of pain in debugging later.
+
 For more information on `Node`, visit the [Reference section](../../reference/node).
 
 ### Writing CatFactsAPITool `execute`
@@ -111,7 +113,7 @@ how you handle internal errors in-practice is a design decision that is complete
 ```
 
 ### Putting it all together
-That's it for the `CatFactsAPITool`! The final code should look like this:
+That's it for the `CatFactsAPITool`! Visit the [Node reference](../reference/node) to learn more. The final code should look like this:
 
 ```python cat_fact_tool.py
 

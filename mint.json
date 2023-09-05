@@ -49,7 +49,7 @@
     },
     {
       "group": "Beginner Tutorial",
-      "pages": ["beginner/tool", "beginner/openai", "beginner/config", "beginner/run"]
+      "pages": ["beginner/tool", "beginner/openai", "beginner/connect", "beginner/run"]
     },
     {
       "group": "Examples",
