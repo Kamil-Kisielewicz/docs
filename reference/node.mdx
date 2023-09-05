@@ -112,12 +112,12 @@ Set a hook to be called after the node executes within the DAG. TODO: what is th
 
 ### validate_input
 <ResponseField type="bool">
-Whether or not the input data (`input`) matches the input schema (`input_s`).
+Whether or not the input data (`input`) matches the input schema (`input_s`). Although we raise an exception for the failure case in DAG, whether you want to raise an exception or not when you use the method otherwise is up to you.
 </ResponseField>
 
 ### validate_output
 <ResponseField type="bool">
-Whether or not the output data (`output`) matches the output schema (`output_s`).
+Whether or not the output data (`output`) matches the output schema (`output_s`). Although we raise an exception for the failure case in DAG, whether you want to raise an exception or not when you use the method otherwise is up to you.
 </ResponseField>
 
 ### validate_execute_args

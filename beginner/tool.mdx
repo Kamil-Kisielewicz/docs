@@ -29,7 +29,7 @@ Please make sure you have completed the [Getting Started](../getting-started) tu
 ### Overview
 
 For this part of the tutorial, we'll be using a [free API](https://catfact.ninja) to get random cat facts.
-We'll need to extend the `Node` class and call the API using `aiohttp` to make the most of the asynchronous nature of Trellis.
+We'll need to extend the `Node` class and call the API using `aiohttp`.
 
 ### Imports
 
@@ -80,8 +80,7 @@ For more information on `Node`, visit the [Reference section](../../reference/no
 ### Writing CatFactsAPITool `execute`
 
 The `execute` function is where `Node` assumes your business logic will be called. For this example, the only thing
-we need to do is get the arguments for calling the CatFacts API, call the API, and return the result. `execute` is
-defined as an asynchronous function so Trellis can be more performant.
+we need to do is get the arguments for calling the CatFacts API, call the API, and return the result.
 
 #### Getting the arguments
 
