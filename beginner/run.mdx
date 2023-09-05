@@ -16,7 +16,7 @@ result = await dag.execute(init_dict)
 ### Running with asyncio
 The last step is to move all the code into an async function called main, and run it with asyncio. 
 ```python example_dag.py
-from trellis import LLM, DAG
+from trellis_dag import LLM, DAG
 from cat_fact_tool import CatFactsAPITool
 
 import asyncio

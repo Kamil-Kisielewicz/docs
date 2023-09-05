@@ -12,7 +12,7 @@ All we need to do is instantiate an instance of a DAG, add instances of our `Nod
 ### Instantiate the DAG
 First, we need to import the `DAG` class.
 ```python example_dag.py
-from trellis import DAG
+from trellis_dag import DAG
 ```
 
 Then, we can instantiate a `DAG`.
@@ -62,7 +62,7 @@ of code you'd have to rewrite.
 That's it! We've put our `DAG` together. In the next and final tutorial, we'll run it. Visit the [DAG reference](../reference/dag) to learn more. Here's the full code for this tutorial.
 ```python example_dag.py
 from cat_fact_tool import CatFactsAPITool
-from trellis import DAG
+from trellis_dag import DAG
 
 cat_fact_tool = CatFactsAPITool("cat_fact_tool")
 

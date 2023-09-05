@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Trellis",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/logo_trellis_white.png",
+    "light": "/logo/logo_trellis.png"
   },
   "favicon": "/favicon.png",
   "colors": {
@@ -57,7 +57,7 @@
     }
   ],
   "footerSocials": {
-    "github": "#"
+    "github": "https://www.github.com"
   },
   "analytics": {
     "posthog": {

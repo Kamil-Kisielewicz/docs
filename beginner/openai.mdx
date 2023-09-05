@@ -15,7 +15,7 @@ Each Trellis `LLM` node is effectively one call to the OpenAI API, so we'll need
 First, we'll import the `LLM` class from the `trellis` package.
 
 ```python example_dag.py
-from trellis import LLM
+from trellis_dag import LLM
 ```
 
 ### Initializing the LLM generating the cat fact
@@ -56,7 +56,7 @@ These will be filled in when we connect the nodes together through edges in the 
 ### Putting it all together
 That's it for the LLM code! Visit the [LLM reference](../reference/llm) to learn more. Here's the full code for this tutorial:
 ```python example_dag.py
-from trellis import LLM
+from trellis_dag import LLM
 
 generate_cat_fact_llm_msgs = [
     {
