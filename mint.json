@@ -58,5 +58,10 @@
   ],
   "footerSocials": {
     "github": "#"
+  },
+  "analytics": {
+    "posthog": {
+        "apiKey": "phc_qLInS8phhqhE7IrHTMxfbm5yBiTSLz30mOQmsrgLaCD"
+    }
   }
 }
