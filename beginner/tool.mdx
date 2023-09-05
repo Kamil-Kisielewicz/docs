@@ -61,7 +61,7 @@ To effectively write our constructor, we need to understand the arguments that `
         **kwargs,
     ) -> None:
         input_s = {}
-        output_s = {"cat_information": [{"fact": str, "length": int}]}
+        output_s = {"cat_fact_1": [{"fact": str, "length": int}]}
         super().__init__(name, input_s, output_s, *args, **kwargs)
 ```
 
@@ -70,7 +70,7 @@ There's a lot going on here, so let's break it down.
 - `name` is the name of the tool. Under the hood, the nodes are identified by UUID, but have a human-readable `name` for convenience.
 - `input_s` is a dictionary of the inputs that the tool expects from other `Node`s as Python types. The keys are the names of the inputs, and the values are the types of the inputs.
 - `output_s` is a dictionary of the outputs that the tool produces as Python types. The keys are the names of the outputs, and the values are the types of the outputs.
-  In this case, we produce a single output called `cat_information` that is a list of dictionaries, where each dictionary has string keys and string values. This is the format that the API returns, so we'll keep it as is.
+  In this case, we produce a single output called `cat_fact_1` that is a list of dictionaries, where each dictionary has string keys and string values. This is the format that the API returns, so we'll keep it as is.
 - `*args` and `**kwargs` are used to pass arguments to the node which will be used at runtime (when `Node.execute()` is called). You can set these via the constructor for convenience, or use `.set_execute_args` to do this.
 
 NOTE: even though input_s and output_s are optional to `Node`, setting these upfront will save you a lot of pain in debugging later.
@@ -84,13 +84,12 @@ we need to do is get the arguments for calling the CatFacts API, call the API, a
 
 #### Getting the arguments
 
-The first thing we need to do is get our execute arguments. In this case, we have two integer arguments; limit, and max_length. There are two ways to set execute arguments: static and dynamic. If the arguments can be hardcoded, you can set them via `.set_execute_args`. However, if you want to dynamically set these arguments (say, from the output of an LLM call executed right before), you can do so as well. These execute args will then be sent to `Node.input` instead of `Node.execute_args`. Despite the difference under the hood, you can use `safe_get_execute_arg` (prioritizes `Node.input` over `Node.execute_args`) no matter how you set the argument to retrieve its value.
+The first thing we need to do is get our execute arguments. In this case, we have one integer argument; max_length. There are two ways to set execute arguments: static and dynamic. If the arguments can be hardcoded, you can set them via `.set_execute_args`. However, if you want to dynamically set these arguments (say, from the output of an LLM call executed right before), you can do so as well. These execute args will then be sent to `Node.input` instead of `Node.execute_args`. Despite the difference under the hood, you can use `safe_get_execute_arg` (prioritizes `Node.input` over `Node.execute_args`) no matter how you set the argument to retrieve its value.
 
-In this case, we only need to provide two arguments: `limit` and `max_length`. `limit` is the number of cat facts we want to get, and `max_length` is the maximum length of the cat facts we want to get.
+In this case, we only need to provide one argument: `max_length`. `max_length` is the maximum length of the cat facts we want to get.
 
 ```python cat_fact_tool.py
     async def execute(self) -> None:
-        limit: int = self.safe_get_execute_arg("limit", 1)
         max_length: int = self.safe_get_execute_arg("max_length", 140)
 ```
 
@@ -101,16 +100,16 @@ Next, we need to call the API. We'll use `aiohttp` to do this. `aiohttp` is a po
 ```python cat_fact_tool.py
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                f"https://catfact.ninja/facts?limit={limit}&max_length={max_length}"
+                f"https://catfact.ninja/facts?limit=1&max_length={max_length}"
             ) as response:
 ```
 
-Once we get the result, we need to set Node’s output value to the output of the API call, so that our LLM can use its result. We can do this using set_output. Note the transformation from `"data"` to `"cat_information"`; we have done this for ease of understanding in the further steps, but doing anything here is a decision left to the user. If it remains unchanged, you'll have to [transform](../reference/dag#add-edge) it later.
+Once we get the result, we need to set Node’s output value to the output of the API call, so that our LLM can use its result. We can do this using set_output. Note the transformation from `"data"` to `"cat_fact_1"`; we have done this for ease of understanding in the further steps, but doing anything here is a decision left to the user. If it remains unchanged, you'll have to [transform](../reference/dag#add-edge) it later.
 
 ```python cat_fact_tool.py
                 if response.status == 200:
                     data = await response.json()
-                    self.set_output({"cat_information": data["data"]})
+                    self.set_output({"cat_fact_1": data["data"]})
 ```
 
 Since the rest of the pipeline depends on the output, we'll throw an error if the API call fails. While we'll default to raising errors in this tutorial,
@@ -126,8 +125,7 @@ how you handle internal errors in-practice is a design decision that is complete
 That's it for the `CatFactsAPITool`! Visit the [Node reference](../reference/node) to learn more. The final code should look like this:
 
 ```python cat_fact_tool.py
-
-from .. import Node
+from trellis import Node
 import aiohttp
 
 import asyncio
@@ -141,7 +139,7 @@ class CatFactsAPITool(Node):
         **kwargs,
     ) -> None:
         input_s = {}
-        output_s = {"cat_information": list[dict[str, str]]}
+        output_s = {"cat_fact_1": [{"fact": str, "length": int}]}
         super().__init__(name, input_s, output_s, *args, **kwargs)
 
     async def execute(self) -> None:
@@ -149,7 +147,7 @@ class CatFactsAPITool(Node):
 
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                f"https://catfact.ninja/facts?limit={limit}&max_length={max_length}"
+                f"https://catfact.ninja/facts?limit=1&max_length={max_length}"
             ) as response:
                 if response.status == 200:
                     data = await response.json()
