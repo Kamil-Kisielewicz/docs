@@ -7,9 +7,7 @@ icon: circle-4
 The final step in our tutorial is to run our DAG. We'll need to set one argument for our dag's `execute` function, and move everything into an async function.
 
 ### Setting the execute args
-In order to use our `CatFactsAPITool`, we need to set our keyword arguments as `kwargs`. 
-The structure of the dictionary must be `{node_id: {"kwargs": kwargs}}`; you can also pass in args,
-but it has to be associated with a node_id as the key of the dictionary.
+If you will remember, we didn't set the arguments for our `CatFactTool`, so we will now do so with `set_execute_args`. The function takes a dictionary of the format: `{"args": list, "kwargs": dict}`. In our case, we have `max_length = 100` and `limit = 1`.
 ```python example_dag.py
 init_dict = {cat_fact_tool.get_id(): {"kwargs": {"max_length": 100}}}
 result = await dag.execute(init_dict)
@@ -18,8 +16,8 @@ result = await dag.execute(init_dict)
 ### Running with asyncio
 The last step is to move all the code into an async function called main, and run it with asyncio. 
 ```python example_dag.py
-from .. import LLM, DAG
-from .cat_fact_tool import CatFactsAPITool
+from trellis import LLM, DAG
+from cat_fact_tool import CatFactsAPITool
 
 import asyncio
 

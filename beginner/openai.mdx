@@ -15,7 +15,7 @@ Each Trellis `LLM` node is effectively one call to the OpenAI API, so we'll need
 First, we'll import the `LLM` class from the `trellis` package.
 
 ```python example_dag.py
-from trellis.llm import LLM
+from trellis import LLM
 ```
 
 ### Initializing the LLM generating the cat fact
@@ -34,8 +34,8 @@ generate_cat_fact_llm = LLM(
 The `LLM` class only requires a `name` to be initialized. `messages` is also very important, but
 Trellis lets you set it using `set_messages` or through the constructor. In this case, we'll use the constructor, 
 and we'll use `set_messages` for the next LLM call.
-We aren't setting an input or output schema, because we're not taking any inputs, and we'll handle the output transformation when we connect the nodes.
-You can set any other arguments that you'd expect within the OpenAI API spec for chat completions.
+Since our prompt doesn't have any variadic input, we can leave the input schema `input_s` blank. 
+Other than `stream`, you can set any other arguments that you'd expect within the OpenAI API spec for chat completions.
 
 ### Initializing the LLM judging the cat fact
 Now, we'll initialize the last Node needed for our DAG, the LLM that's judging the cat fact.
@@ -51,12 +51,12 @@ distinguish_cat_fact_llm.set_messages(distinguish_cat_fact_llm_msgs)
 ```
 
 We'll use `set_messages` this time to set the messages. In the messages, we're using `{cat_fact_1}` and `{cat_fact_2}` to reference the outputs of the previous `Node`s.
-These will be formatted when we connect the nodes together through edges in the next section.
+These will be filled in when we connect the nodes together through edges in the next section.
 
 ### Putting it all together
 That's it for the LLM code! Visit the [LLM reference](../reference/llm) to learn more. Here's the full code for this tutorial:
 ```python example_dag.py
-from trellis.llm import LLM
+from trellis import LLM
 
 generate_cat_fact_llm_msgs = [
     {

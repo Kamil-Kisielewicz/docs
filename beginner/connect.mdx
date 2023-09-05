@@ -42,7 +42,7 @@ Finally, we'll add edges between our `Node`s using the `add_edge` function.
 ```python example_dag.py
 dag.add_edge(cat_fact_tool, distinguish_cat_fact_llm)
 ```
-The cat_fact_tool -> distinguish_cat_fact_llm edge is easy, because we already named the output of the cat_fact_tool `cat_fact`.
+The cat_fact_tool -> `distinguish_cat_fact_llm` edge is easy, because we already changed the output name of `cat_fact_tool` to `cat_fact`.
 
 ```python example_dag.py
 dag.add_edge(
@@ -62,7 +62,7 @@ of code you'd have to rewrite.
 That's it! We've put our `DAG` together. In the next and final tutorial, we'll run it. Visit the [DAG reference](../reference/dag) to learn more. Here's the full code for this tutorial.
 ```python example_dag.py
 from cat_fact_tool import CatFactsAPITool
-from trellis.dag import DAG
+from trellis import DAG
 
 cat_fact_tool = CatFactsAPITool("cat_fact_tool")
 
