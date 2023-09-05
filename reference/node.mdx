@@ -13,7 +13,7 @@ Example: `SUCCESS`
 
 ### get_id
 <ResponseField name="" type="string">
-id of this node.
+ID of this node.
 
 </ResponseField>
 
@@ -25,13 +25,13 @@ Name assigned to the instance of this node.
 
 ### get_input
 <ResponseField type="dict[str:type]">
-Returns input schema as a dictionary of field name keys and type values. Input is meant to represent values passed in and set dynamically from other nodes.
+Returns input as a dictionary of field name keys and type values. Input is meant to represent values passed in and set dynamically from other nodes.
 
 </ResponseField>
 
 ### get_output
 <ResponseField type="dict[str:type]">
-Returns output schema as a dictionary of field name keys and type values.
+Returns output as a dictionary of field name keys and type values.
 
 </ResponseField>
 
@@ -124,12 +124,6 @@ Whether or not the output data (`output`) matches the output schema (`output_s`)
 <ResponseField type="bool">
 Whether or not the execute args data (`execute_args`) matches the execute_args schema (`__execute_args_s`).
 </ResponseField>
-
-### pre_hook
-Hook which runs before the node executes within a DAG. Sets status to `EXECUTING` and input to the output of `pre_execute_hook`.
-
-### post_hook
-Hook which runs before the node executes within a DAG. Sets status to `SUCCESS` and output to the output of `post_execute_hook`.
 
 ### execute
 Abstract method which must be implemented in a subclass. This method is called when the node is executed within a DAG.
