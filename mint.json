@@ -21,12 +21,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:kamil@tryinterlock.com"
+      "url": "mailto:shiv@tryinterlock.com"
     }
   ],
   "topbarCtaButton": {
     "name": "GitHub",
-    "url": "#"
+    "url": "https://github.com/interlocklabs/trellis"
   },
   "tabs": [
   ],
@@ -39,7 +39,7 @@
     {
       "name": "GitHub",
       "icon": "github",
-      "url": "#"
+      "url": "https://github.com/interlocklabs/trellis"
     }
   ],
   "navigation": [
@@ -57,7 +57,7 @@
     }
   ],
   "footerSocials": {
-    "github": "https://www.github.com"
+    "github": "https://github.com/interlocklabs/trellis"
   },
   "analytics": {
     "posthog": {
